@@ -1,0 +1,562 @@
+{
+  "info": {
+    "name": "AudienceAI API",
+    "description": "Complete Postman collection for the AudienceAI backend API. Import this file into Postman along with AudienceAI.postman_environment.json.\n\n**How to use:**\n1. Import both JSON files into Postman.\n2. Select the 'AudienceAI' environment.\n3. Run 'Auth > Login' first — the access token is captured automatically.\n4. All subsequent requests will use the token from the environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl",      "value": "http://localhost:5000/api/v1" },
+    { "key": "accessToken",  "value": "" },
+    { "key": "refreshToken", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }]
+  },
+  "item": [
+
+    {
+      "name": "🔐 Auth",
+      "item": [
+
+        {
+          "name": "Register (Attendee)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 201) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "  pm.test('Registered successfully', () => pm.expect(pm.response.code).to.eql(201));",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@test.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+1 (555) 999-0000\",\n  \"company\": \"Test Corp\",\n  \"jobTitle\": \"Chief Technology Officer\",\n  \"industry\": \"technology\",\n  \"companySize\": \"201-500\",\n  \"eventInterest\": \"ai-ml\",\n  \"hearAboutUs\": \"referral\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Login (Organizer)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 200) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "  pm.test('Login successful', () => pm.expect(pm.response.code).to.eql(200));",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"organizer@audienceai.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Login (Sponsor)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 200) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "  pm.test('Login successful', () => pm.expect(pm.response.code).to.eql(200));",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sponsor@dataflow.io\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Login (Admin)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 200) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@audienceai.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Login (Attendee)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 200) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah.chen@techcorp.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Refresh Token",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 200) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('accessToken',  json.data.accessToken);",
+            "  pm.environment.set('refreshToken', json.data.refreshToken);",
+            "  pm.collectionVariables.set('accessToken',  json.data.accessToken);",
+            "  pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/refresh", "host": ["{{baseUrl}}"], "path": ["auth", "refresh"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        },
+
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        },
+
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        }
+
+      ]
+    },
+
+    {
+      "name": "👤 Users",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] }
+          }
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobTitle\": \"VP of Engineering\",\n  \"company\": \"Updated Corp\",\n  \"companySize\": \"1000+\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete My Account",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] }
+          }
+        },
+        {
+          "name": "List All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users?page=1&limit=20",
+              "host": ["{{baseUrl}}"], "path": ["users"],
+              "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "🧑‍💼 Attendees",
+      "item": [
+        {
+          "name": "List All Attendees",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/attendees?page=1&limit=20",
+              "host": ["{{baseUrl}}"], "path": ["attendees"],
+              "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }]
+            }
+          }
+        },
+        {
+          "name": "Filter — High Relevance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/attendees?status=high",
+              "host": ["{{baseUrl}}"], "path": ["attendees"],
+              "query": [{ "key": "status", "value": "high" }]
+            }
+          }
+        },
+        {
+          "name": "Filter — Moderate Relevance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/attendees?status=moderate",
+              "host": ["{{baseUrl}}"], "path": ["attendees"],
+              "query": [{ "key": "status", "value": "moderate" }]
+            }
+          }
+        },
+        {
+          "name": "Filter — Low Relevance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/attendees?status=low",
+              "host": ["{{baseUrl}}"], "path": ["attendees"],
+              "query": [{ "key": "status", "value": "low" }]
+            }
+          }
+        },
+        {
+          "name": "Search Attendees",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/attendees?search=sarah",
+              "host": ["{{baseUrl}}"], "path": ["attendees"],
+              "query": [{ "key": "search", "value": "sarah" }]
+            }
+          }
+        },
+        {
+          "name": "Get Attendee by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/attendees/{{attendeeId}}", "host": ["{{baseUrl}}"], "path": ["attendees", "{{attendeeId}}"] }
+          }
+        },
+        {
+          "name": "Get Attendee AI Score",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/attendees/{{attendeeId}}/score", "host": ["{{baseUrl}}"], "path": ["attendees", "{{attendeeId}}", "score"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "📅 Events",
+      "item": [
+        {
+          "name": "List Active Events",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/events", "host": ["{{baseUrl}}"], "path": ["events"] }
+          }
+        },
+        {
+          "name": "Get Event by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/events/{{eventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{eventId}}"] }
+          }
+        },
+        {
+          "name": "Create Event (Organizer)",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "if (pm.response.code === 201) {",
+            "  const json = pm.response.json();",
+            "  pm.environment.set('eventId', json.data._id);",
+            "  pm.collectionVariables.set('eventId', json.data._id);",
+            "}"
+          ], "type": "text/javascript" }}],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/events", "host": ["{{baseUrl}}"], "path": ["events"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cloud Summit 2026\",\n  \"description\": \"Premier cloud computing conference.\",\n  \"eventType\": \"cloud\",\n  \"location\": \"New York, NY\",\n  \"startsAt\": \"2026-09-20T09:00:00Z\",\n  \"endsAt\":   \"2026-09-22T18:00:00Z\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Event (Organizer)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/events/{{eventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{eventId}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cloud Summit 2026 — Updated\",\n  \"location\": \"San Francisco, CA\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Event (Organizer)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/events/{{eventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{eventId}}"] }
+          }
+        },
+        {
+          "name": "Register for Event (Attendee)",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/events/{{eventId}}/register", "host": ["{{baseUrl}}"], "path": ["events", "{{eventId}}", "register"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "📊 Analytics",
+      "item": [
+        {
+          "name": "Overview Metrics",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/overview", "host": ["{{baseUrl}}"], "path": ["analytics", "overview"] }
+          }
+        },
+        {
+          "name": "Engagement by Industry",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/engagement-by-industry", "host": ["{{baseUrl}}"], "path": ["analytics", "engagement-by-industry"] }
+          }
+        },
+        {
+          "name": "Audience Segmentation",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/segmentation", "host": ["{{baseUrl}}"], "path": ["analytics", "segmentation"] }
+          }
+        },
+        {
+          "name": "ROI Trend",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/roi-trend", "host": ["{{baseUrl}}"], "path": ["analytics", "roi-trend"] }
+          }
+        },
+        {
+          "name": "Conversion Funnel",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/funnel", "host": ["{{baseUrl}}"], "path": ["analytics", "funnel"] }
+          }
+        },
+        {
+          "name": "Engagement Trend",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/analytics/engagement-trend", "host": ["{{baseUrl}}"], "path": ["analytics", "engagement-trend"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "💼 Sponsors",
+      "item": [
+        {
+          "name": "Generate Leads (run once after seed)",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/sponsors/generate-leads", "host": ["{{baseUrl}}"], "path": ["sponsors", "generate-leads"] }
+          }
+        },
+        {
+          "name": "Get All Leads",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/sponsors/leads?page=1&limit=20",
+              "host": ["{{baseUrl}}"], "path": ["sponsors", "leads"],
+              "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }]
+            }
+          }
+        },
+        {
+          "name": "Filter — Hot Leads",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/sponsors/leads?quality=hot",
+              "host": ["{{baseUrl}}"], "path": ["sponsors", "leads"],
+              "query": [{ "key": "quality", "value": "hot" }]
+            }
+          }
+        },
+        {
+          "name": "Filter — Warm Leads",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/sponsors/leads?quality=warm",
+              "host": ["{{baseUrl}}"], "path": ["sponsors", "leads"],
+              "query": [{ "key": "quality", "value": "warm" }]
+            }
+          }
+        },
+        {
+          "name": "Get Lead by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/sponsors/leads/{{leadId}}", "host": ["{{baseUrl}}"], "path": ["sponsors", "leads", "{{leadId}}"] }
+          }
+        },
+        {
+          "name": "Update Lead Status → viewed",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/sponsors/leads/{{leadId}}/status", "host": ["{{baseUrl}}"], "path": ["sponsors", "leads", "{{leadId}}", "status"] },
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"viewed\"\n}" }
+          }
+        },
+        {
+          "name": "Update Lead Status → contacted",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/sponsors/leads/{{leadId}}/status", "host": ["{{baseUrl}}"], "path": ["sponsors", "leads", "{{leadId}}", "status"] },
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"contacted\"\n}" }
+          }
+        },
+        {
+          "name": "Update Lead Status → converted",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/sponsors/leads/{{leadId}}/status", "host": ["{{baseUrl}}"], "path": ["sponsors", "leads", "{{leadId}}", "status"] },
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"converted\"\n}" }
+          }
+        },
+        {
+          "name": "Sponsor Metrics",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/sponsors/metrics", "host": ["{{baseUrl}}"], "path": ["sponsors", "metrics"] }
+          }
+        },
+        {
+          "name": "Conversion Trend",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/sponsors/conversion-trend", "host": ["{{baseUrl}}"], "path": ["sponsors", "conversion-trend"] }
+          }
+        },
+        {
+          "name": "Lead Quality Distribution",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/sponsors/lead-quality", "host": ["{{baseUrl}}"], "path": ["sponsors", "lead-quality"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "🏠 Dashboard",
+      "item": [
+        {
+          "name": "Summary Stats",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/dashboard/summary", "host": ["{{baseUrl}}"], "path": ["dashboard", "summary"] }
+          }
+        },
+        {
+          "name": "Activity Feed",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/dashboard/activity", "host": ["{{baseUrl}}"], "path": ["dashboard", "activity"] }
+          }
+        },
+        {
+          "name": "Engagement Trend",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/dashboard/engagement-trend", "host": ["{{baseUrl}}"], "path": ["dashboard", "engagement-trend"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "❤️ Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        }
+      ]
+    }
+
+  ]
+}
